@@ -5,7 +5,7 @@ use bevy_rapier2d::prelude::{
     Collider, KinematicCharacterController, KinematicCharacterControllerOutput, RigidBody,
 };
 
-use crate::{animation::Animation, player, WINDOW_BOTTOM_Y, WINDOW_LEFT_X};
+use crate::{animation::Animation, WINDOW_BOTTOM_Y, WINDOW_LEFT_X};
 
 const PLAYER_VELOCITY_X: f32 = 400.0;
 const PLAYER_VELOCITY_Y: f32 = 850.0;
