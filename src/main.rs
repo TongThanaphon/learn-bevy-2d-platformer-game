@@ -23,6 +23,7 @@ const COLOR_BACKGROUND: Color = Color::srgb(0.29, 0.31, 0.41);
 const COLOR_FLOOR: Color = Color::srgb(0.45, 0.55, 0.66);
 
 const FLOOR_THICKNESS: f32 = 10.0;
+const FLOOR_LENGTH: f32 = WINDOW_WIDTH * 4.0;
 
 fn main() {
     App::new()
@@ -56,7 +57,7 @@ fn setup(mut commands: Commands) {
             },
             Transform {
                 translation: Vec3::new(0.0, WINDOW_BOTTOM_Y + (FLOOR_THICKNESS / 2.0), 0.0),
-                scale: Vec3::new(WINDOW_WIDTH, FLOOR_THICKNESS, 1.0),
+                scale: Vec3::new(FLOOR_LENGTH, FLOOR_THICKNESS, 1.0),
                 ..default()
             },
         ))

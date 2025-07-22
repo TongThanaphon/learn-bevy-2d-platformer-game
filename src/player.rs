@@ -5,7 +5,7 @@ use bevy_rapier2d::prelude::{
     Collider, KinematicCharacterController, KinematicCharacterControllerOutput, RigidBody,
 };
 
-use crate::{WINDOW_BOTTOM_Y, WINDOW_LEFT_X, animation::Animation};
+use crate::{animation::Animation, player, WINDOW_BOTTOM_Y, WINDOW_LEFT_X};
 
 const PLAYER_VELOCITY_X: f32 = 400.0;
 const PLAYER_VELOCITY_Y: f32 = 850.0;
@@ -38,7 +38,8 @@ impl Plugin for PlayerPlugin {
             .add_systems(Update, apply_idle_sprite)
             .add_systems(Update, apply_jump_sprite)
             .add_systems(Update, update_direction)
-            .add_systems(Update, update_sprite_direction);
+            .add_systems(Update, update_sprite_direction)
+            .add_systems(Update, camera_follow_player);
     }
 }
 
@@ -274,5 +275,16 @@ fn update_sprite_direction(mut query: Query<(&mut Sprite, &Direction)>) {
                 }
             }
         }
+    }
+}
+
+fn camera_follow_player(
+    mut camera_query: Query<&mut Transform, With<Camera2d>>,
+    player_query: Query<&Transform, (With<KinematicCharacterController>, Without<Camera2d>)>,
+) {
+    if let (Ok(mut camera_transform), Ok(player_transform)) =
+        (camera_query.single_mut(), player_query.single())
+    {
+        camera_transform.translation.x = player_transform.translation.x;
     }
 }
